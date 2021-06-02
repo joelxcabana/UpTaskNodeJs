@@ -8,7 +8,7 @@ module.exports = function (){
         router.get('/',proyectoController.proyectosHome);
 
         router.get('/nosotros',(req,res)=>{
-            res.send('NOSOTROS');
+            res.render('nosotros');
         });
 
 return router;

@@ -1,3 +1,3 @@
 exports.proyectosHome = (req,res)=>{
-    res.json("HOME");
+    res.render('index');
 }

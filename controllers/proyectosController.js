@@ -3,3 +3,9 @@ exports.proyectosHome = (req,res)=>{
         nombrePagina:'Proyectos'
     });
 }
+
+exports.formularioPoryecto = (req,res) =>{
+    res.render('nuevoProyecto',{
+        nombrePagina:'Nuevo Proyecto'
+    });
+}

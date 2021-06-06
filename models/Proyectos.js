@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const slug = require('slug');
 
 /* Importar la configuracion de la base de datos*/
 const db = require('../config/db');
@@ -12,6 +13,14 @@ const Proyectos = db.define('proyectos',{
     },
     nombre: Sequelize.STRING,
     url: Sequelize.STRING
+},{
+    hooks:{
+        //se ejecuta antes de crean el dato
+        beforeCreate(proyecto){
+            const url = slug(proyecto.nombre).toLowerCase();
+            proyecto.url = url;
+        }
+    }
 });
 
 /* Exportar para utilizar en otros archivos*/

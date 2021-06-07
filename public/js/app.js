@@ -1,1 +1,1 @@
-alert('hos');
+import  tareas from './modulos/proyecto';

@@ -19,23 +19,22 @@ if(btnEliminar){
             //enviar peticion a Axios
             const url = `${location.origin}/proyectos/${urlProyecto}`;
             
-            axios.delete(url,{params: urlProyecto})
+            axios.delete(url,{params: {urlProyecto}})
                .then(function(respuesta){
-                    console.log(respuesta);
+
+                    if (result.isConfirmed) {
+                      Swal.fire(
+                        'Eliminado!',
+                        'tu proyecto ha sido eliminado.',
+                        'Exito'
+                      );
+                      setTimeout(()=>{
+                          window.location.href='/'
+                      },1000)
+                    }
+
               });
 
-              return;
-
-            if (result.isConfirmed) {
-              Swal.fire(
-                'Eliminado!',
-                'tu proyecto ha sido eliminado.',
-                'Exito'
-              );
-              setTimeout(()=>{
-                  window.location.href='/'
-              },1000)
-            }
           })
     })
 }

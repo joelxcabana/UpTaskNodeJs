@@ -11,6 +11,8 @@ const db = require('./config/db');
 
 //importar el modelo 
 require('./models/Proyectos');
+require('./models/Tareas');
+
 //bd.authenticate => solo se conecta al servidor
 db.sync()
    .then(()=>console.log('Conectado al servidor'))

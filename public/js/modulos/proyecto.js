@@ -21,7 +21,6 @@ if(btnEliminar){
             
             axios.delete(url,{params: {urlProyecto}})
                .then(function(respuesta){
-
                     if (result.isConfirmed) {
                       Swal.fire(
                         'Eliminado!',
@@ -33,7 +32,14 @@ if(btnEliminar){
                       },1000)
                     }
 
-              });
+                })
+                .catch(()=>{
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Hubo un error',
+                      text: "no se pudo eliminar el proyecto"
+                    })
+                })
 
           })
     })

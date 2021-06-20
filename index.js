@@ -12,6 +12,7 @@ const db = require('./config/db');
 //importar el modelo 
 require('./models/Proyectos');
 require('./models/Tareas');
+require('./models/Usuarios');
 
 //bd.authenticate => solo se conecta al servidor
 db.sync()

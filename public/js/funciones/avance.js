@@ -19,7 +19,7 @@ export const actualizarAvance = () =>{
            Swal.fire({
             icon: 'success',
             title: 'Completaste el proyecto',
-            text: "el proyecto ha sido completado con "+tareasCompleta.length+" tareas completadas"
+            text: "el proyecto ha sido completado con "+tareasCompleta.length                                                   +" tareas completadas"
           })
 
       }

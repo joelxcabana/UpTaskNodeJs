@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 const Proyectos = require('../models/Proyectos');
+const bcrypt = require('bcrypt');
 
 const Usuarios = db.define('usuarios',{
     id:{
@@ -15,6 +16,13 @@ const Usuarios = db.define('usuarios',{
     password:{
         type:Sequelize.STRING(60),
         allowNull: false
+    }
+},{
+    hooks:{
+        //se ejecuta antes de crean el usuario
+        beforeCreate(usuario){
+           usuario.password =  bcrypt.hashSync(usuario.password,bcrypt.genSaltSync(10));
+        }
     }
 })
 /* un usuario puede crear muchos proyectos*/

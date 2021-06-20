@@ -3,7 +3,7 @@ const routes = require('./routes');
 const path = require('path');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
-
+const passport = require('./config/passport');
 
 const session = require('express-session');
 const cookieparser = require('cookie-parser');
@@ -50,6 +50,10 @@ app.use(session({
    resave: false,
    saveUninitialized: false
 }))
+
+//passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //pasar vardump a la aplicacion

@@ -7,9 +7,12 @@ module.exports.formCrearCuenta = async (req,res) =>{
 }
 
 module.exports.formIniciarSesion = async (req,res) =>{
-   console.log('form iniciar sesioooon');
+ 
+   const {error} =  res.locals.mensajes;
+
    res.render('iniciarSesion',{
-    nombrePagina:'Iniciar sesion en UpTask'
+    nombrePagina:'Iniciar sesion en UpTask',
+    error:error
    });
 }
 

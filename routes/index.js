@@ -89,6 +89,9 @@ module.exports = function (){
         router.post('/iniciar-sesion',
                 authController.autenticarUsuario
         );
+
+        //cerrar sesion
+        router.get('/cerrar-sesion',authController.cerrarSesion)
         
 return router;
 }

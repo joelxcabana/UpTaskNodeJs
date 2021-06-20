@@ -6,6 +6,13 @@ module.exports.formCrearCuenta = async (req,res) =>{
    });
 }
 
+module.exports.formIniciarSesion = async (req,res) =>{
+   console.log('form iniciar sesioooon');
+   res.render('iniciarSesion',{
+    nombrePagina:'Iniciar sesion en UpTask'
+   });
+}
+
 module.exports.crearCuenta = async (req,res) =>{
    //leer datos
    const {email,password} = req.body;

@@ -9,13 +9,31 @@ const Usuarios = db.define('usuarios',{
         primaryKey:true,
         autoIncrement:true
     },
-    email:{
-        type:Sequelize.STRING(60),
-        allowNull:false
+    email: {
+        type: Sequelize.STRING(60),
+        allowNull: false,
+        validate: {
+            isEmail:{
+                msg: 'Agrega un correo válido.'
+            },
+            notEmpty: {
+                msg: 'El email no puede ir vacío.'
+            }
+        },
+        unique: {
+            args: true,
+            msg: 'Email address already in use!'
+        }
+    
     },
     password:{
         type:Sequelize.STRING(60),
-        allowNull: false
+        allowNull: false,
+        validate:{
+            notEmpty:{
+                msg:'el assword no debe estar vacio'
+            }
+        }
     }
 },{
     hooks:{

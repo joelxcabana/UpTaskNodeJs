@@ -2,6 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 const path = require('path');
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
 
 //helpers con algunas fuciones
 const helpers = require('./helpers');
@@ -19,8 +20,13 @@ db.sync()
    .then(()=>console.log('Conectado al servidor'))
    .catch(error => console.log(error))
 
+
+
 //crear aplicacion de express
 const app = express();
+
+//habilitar para ller datos del formulario
+app.use(bodyParser.urlencoded({extended:true}));
 
 //donde cargar los archivos estaticos
 app.use(express.static('public'));
@@ -30,6 +36,11 @@ app.set('view engine','pug');
 //agregar carpetas de las vistas
 app.set('views',path.join(__dirname,'./views'));
 
+//agregar flash message
+app.use(flash());
+
+
+
 //pasar vardump a la aplicacion
 app.use((req,res,next) => {
     //locals crear varables en este archivo y consumirlo en otro archivo
@@ -38,8 +49,6 @@ app.use((req,res,next) => {
      next();
 });
 
-//habilitar para ller datos del formulario
-app.use(bodyParser.urlencoded({extended:true}));
 
 
 app.use('/', routes());

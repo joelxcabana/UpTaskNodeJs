@@ -2,7 +2,8 @@ const Proyectos = require('../models/Proyectos');
 const Tareas = require('../models/Tareas');
 
 exports.proyectosHome = async (req,res)=>{
-    const proyectos = await Proyectos.findAll();
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await Proyectos.findAll({where:{usuarioId}});
     res.render('index',{
         nombrePagina:'Proyectos',
         proyectos
@@ -10,7 +11,8 @@ exports.proyectosHome = async (req,res)=>{
 }
 
 exports.formularioPoryecto = async (req,res) =>{
-  const proyectos = await Proyectos.findAll();
+  const usuarioId = res.locals.usuario.id;
+  const proyectos = await Proyectos.findAll({where:{usuarioId}});
     res.render('nuevoProyecto',{
         nombrePagina:'Nuevo Proyecto',
         proyectos
@@ -21,7 +23,8 @@ exports.nuevoProyecto = async (req,res) =>{
   const { nombre } = req.body;
 
   let errores = [];
-  const proyectos = await Proyectos.findAll();
+  const usuarioId = res.locals.usuario.id;
+  const proyectos = await Proyectos.findAll({where:{usuarioId}});
   if(!nombre){
       errores.push({'texto':'agrega un nombre'});
   }
@@ -34,21 +37,24 @@ exports.nuevoProyecto = async (req,res) =>{
   })
   }else{
     //insertar en la base de datos
-    const propyecto = await Proyectos.create({nombre});
+    const usuarioId = res.locals.usuario.id;
+    const propyecto = await Proyectos.create({nombre,usuarioId});
     res.redirect('/');
   }
 }
 
 exports.proyectoPorUrl = async (req,res,next) => {
+  const usuarioId = res.locals.usuario.id;
   //buscar solo uno
   const proyecto = await Proyectos.findOne({
     //condicion
       where:{
-         url:req.params.url
+         url:req.params.url,
+         usuarioId
       }
   })
 
-  const proyectos = await Proyectos.findAll();
+  const proyectos = await await Proyectos.findAll({where:{usuarioId}});
 
   const tareas = await Tareas.findAll({
     where:{
@@ -69,9 +75,10 @@ exports.proyectoPorUrl = async (req,res,next) => {
 }
 
 exports.formularioEditar = async (req,res) =>{
+  const usuarioId = res.locals.usuario.id;
   const { id } = req.params;
   const proyectoPromise = Proyectos.findByPk(id);
-  const proyectosPromise =  Proyectos.findAll();
+  const proyectosPromise =  Proyectos.findAll({where:{usuarioId}});
   // se utiliza promesas cuando un metodo no depende del otro
   const [proyectos,proyecto] = await Promise.all([proyectosPromise,proyectoPromise]);
  
@@ -85,9 +92,10 @@ exports.formularioEditar = async (req,res) =>{
 exports.actualizarProyecto = async (req,res) => {
   const { nombre} = req.body;
   const { id } = req.params;
-
+  const usuarioId = res.locals.usuario.id;
+  
   let errores = [];
-  const proyectos = await Proyectos.findAll();
+  const proyectos = await Proyectos.findAll({where:{usuarioId}});
   if(!nombre){
       errores.push({'texto':'agrega un nombre'});
   }
@@ -110,8 +118,9 @@ exports.actualizarProyecto = async (req,res) => {
 
 exports.eliminarProyecto = async (req,res,next) =>{
   const {urlProyecto} = req.query;
+  const usuarioId = res.locals.usuario.id;
 
-  const resultado = await Proyectos.destroy({where: {url:urlProyecto}});
+  const resultado = await Proyectos.destroy({where: {url:urlProyecto,usuarioId}});
 
   //controlar error
    if(!resultado){
